@@ -1,0 +1,169 @@
+/* ============================================
+   GLOBAL STYLES & DESIGN TOKENS
+   ============================================ */
+
+:root {
+  /* Complementary Color Palette */
+  --color-primary: #1a3a52;          /* Navy Blue */
+  --color-primary-hover: #0f2438;    /* Darker Navy */
+  --color-accent: #2e8b9e;           /* Teal - complements Navy */
+  --color-accent-hover: #1f5d6f;     /* Darker Teal */
+  --color-secondary: #5a7d8f;        /* Slate Blue-Gray */
+  --color-secondary-hover: #3f5a70;  /* Darker Slate */
+  --color-danger: #c55a49;           /* Warm Rust Red */
+  --color-danger-hover: #a84639;     /* Darker Rust */
+  --color-success: #4a9b6f;          /* Muted Green */
+  --color-success-hover: #356b50;    /* Darker Green */
+
+  --color-text: #1f2937;             /* Dark Gray for text */
+  --color-text-secondary: #6b7280;   /* Medium Gray */
+  --color-border: #d1d5db;           /* Light Border Gray */
+  --color-border-light: #e5e7eb;     /* Lighter Border */
+  --color-bg-nav: #1a3a52;           /* Navy for nav */
+  --color-bg-card: #ffffff;          /* White cards */
+  --color-bg-light: #f9fafb;         /* Off-white backgrounds */
+  --color-link: #2e8b9e;             /* Teal for links */
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  --radius: 6px;
+  --radius-lg: 12px;
+
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg-light);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius);
+  transition: background-color 0.3s ease;
+}
+
+.btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-primary:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.btn-secondary {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-accent-hover);
+}
+
+.btn-secondary:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.btn-danger:hover {
+  background-color: var(--color-danger-hover);
+}
+
+.btn-danger:focus {
+  outline: 2px solid var(--color-danger-hover);
+  outline-offset: 2px;
+}
+
+.mt-3 {
+  margin-top: 20px;
+}
+
+/* ============================================
+   FORM STYLES
+   ============================================ */
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+  font-size: 14px;
+}
+
+.form-control {
+  padding: 12px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  background-color: var(--color-bg-card);
+  color: var(--color-text);
+}
+
+.form-control:hover {
+  border-color: var(--color-accent);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(26, 58, 82, 0.1);
+  background-color: var(--color-bg-card);
+}
+
+.form-control textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.text-center {
+  text-align: center;
+}
