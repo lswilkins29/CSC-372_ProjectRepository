@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { searchPokemon, getPokemonList, addToParty, getParty } from './services/pokemonService';
-import styles from "./page.module.css";
+import { searchPokemon, getPokemonList, addToParty, getParty } from '../services/pokemonService';
+import styles from "../page.module.css";
 
 export default function Home() {
   const [search, setSearch] = useState('');

@@ -9,4 +9,4 @@ DATABASE_URL='NEON STRING'
 ```
 - Run `npm install`
 - Run `npm run dev`
-- Access the app at http://localhost:3000/products
+- Access the app at http://localhost:3000/pokemon
