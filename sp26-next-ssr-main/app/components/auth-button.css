@@ -1,0 +1,37 @@
+.auth-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-email {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.auth-button {
+  padding: 0.5rem 1rem;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+  background-color: #357ae8;
+}
+
+.signout-btn {
+  background-color: #ea4335;
+}
+
+.signout-btn:hover {
+  background-color: #d33425;
+}
+
+.auth-loading {
+  color: #999;
+}

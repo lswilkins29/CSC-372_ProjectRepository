@@ -10,7 +10,6 @@ export default function Home() {
   const [error, setError] = useState('');
   const [party, setParty] = useState([]);
   const [selectedPosition, setSelectedPosition] = useState(null);
-  const [userId] = useState('default_user');
 
   useEffect(() => {
     loadInitialPokemon();
@@ -32,7 +31,7 @@ export default function Home() {
 
   async function loadParty() {
     try {
-      const data = await getParty(userId);
+      const data = await getParty();
       setParty(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Failed to load party:', err);
@@ -71,7 +70,7 @@ export default function Home() {
     }
     
     try {
-      const response = await addToParty(pokemon, selectedPosition, userId);
+      const response = await addToParty(pokemon, selectedPosition);
       if (response.error) {
         alert(response.error);
       } else {

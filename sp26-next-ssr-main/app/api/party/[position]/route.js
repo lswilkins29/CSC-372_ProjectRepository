@@ -1,16 +1,19 @@
 import partyModel from '../../../../model/partyModel';
+import { requireAuth, unauthorizedResponse } from '../../../utils/authHelper';
 
 export async function DELETE(request, { params }) {
+  const session = await requireAuth();
+  if (!session) return unauthorizedResponse();
+
   try {
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get('user_id') || 'default_user';
+    const userEmail = session.user.email;
     const position = parseInt(params.id);
 
     if (isNaN(position) || position < 1 || position > 6) {
       return Response.json({ error: 'Invalid position' }, { status: 400 });
     }
 
-    const deleted = await partyModel.removeFromParty(userId, position);
+    const deleted = await partyModel.removeFromParty(userEmail, position);
     
     if (deleted === 0) {
       return Response.json({ error: 'No Pokémon at that position' }, { status: 404 });

@@ -1,7 +1,15 @@
+import { auth } from '../services/authService';
 import partiesModel from '../../model/partyModel';
 import './parties.css';
+import { redirect } from 'next/navigation';
 
 export default async function PartiesPage() {
+  // Check if user is authenticated
+  const session = await auth();
+  if (!session?.user) {
+    redirect('/api/auth/signin');
+  }
+
   let parties = [];
   let error = null;
 

@@ -6,7 +6,6 @@ import styles from './party.module.css';
 export default function PartyPage() {
   const [party, setParty] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [userId] = useState('default_user');
 
   useEffect(() => {
     loadParty();
@@ -15,7 +14,7 @@ export default function PartyPage() {
   async function loadParty() {
     setLoading(true);
     try {
-      const data = await getParty(userId);
+      const data = await getParty();
       setParty(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Failed to load party:', err);
@@ -25,7 +24,7 @@ export default function PartyPage() {
 
   async function handleRemove(position) {
     try {
-      const response = await removeFromParty(position, userId);
+      const response = await removeFromParty(position);
       if (response.error) {
         alert(response.error);
       } else {

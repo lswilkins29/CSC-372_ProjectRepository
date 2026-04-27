@@ -17,34 +17,59 @@ export async function getPokemonList() {
 }
 
 // Party operations
-export async function getParty(userId = 'default_user') {
-  const response = await fetch(`/api/party?user_id=${userId}`);
+export async function getParty() {
+  const response = await fetch('/api/party');
+  if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error('Unauthorized. Please sign in.');
+    }
+    throw new Error('Failed to fetch party');
+  }
   return response.json();
 }
 
-export async function addToParty(pokemon, position, userId = 'default_user') {
+export async function addToParty(pokemon, position) {
   const response = await fetch('/api/party', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      user_id: userId,
       pokemon_id: pokemon.id,
       pokemon_name: pokemon.name,
       pokemon_sprite: pokemon.sprite,
       position
     })
   });
+  
+  if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error('Unauthorized. Please sign in.');
+    }
+    throw new Error('Failed to add to party');
+  }
   return response;
 }
 
-export async function removeFromParty(position, userId = 'default_user') {
-  const response = await fetch(`/api/party/${position}?user_id=${userId}`, {
+export async function removeFromParty(position) {
+  const response = await fetch(`/api/party/${position}`, {
     method: 'DELETE'
   });
+  
+  if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error('Unauthorized. Please sign in.');
+    }
+    throw new Error('Failed to remove from party');
+  }
   return response;
 }
 
 export async function getAllParties() {
   const response = await fetch('/api/parties');
+  if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error('Unauthorized. Please sign in.');
+    }
+    throw new Error('Failed to fetch parties');
+  }
   return response.json();
 }
