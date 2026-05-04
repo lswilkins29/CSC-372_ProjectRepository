@@ -24,14 +24,43 @@ export default function PartyPage() {
 
   async function handleRemove(position) {
     try {
-      const response = await removeFromParty(position);
-      if (response.error) {
-        alert(response.error);
+      await removeFromParty(position);
+      loadParty();
+    } catch (err) {
+      alert(err.message || 'Failed to remove Pokémon');
+    }
+  }
+
+  async function handleExport() {
+    setExporting(true);
+    try {
+      const response = await exportParty();
+      if (response.ok) {
+        // Get the filename from content-disposition header
+        const contentDisposition = response.headers.get('content-disposition');
+        const filename = contentDisposition
+          ? contentDisposition.split('filename=')[1].replace(/"/g, '')
+          : 'pokemon-party.json';
+        
+        // Create blob and download
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
+        alert('Party exported successfully!');
       } else {
-        loadParty();
+        alert('Failed to export party');
       }
     } catch (err) {
-      alert('Failed to remove Pokémon');
+      alert('Error exporting party: ' + err.message);
+    } finally {
+      setExporting(false);
     }
   }
 

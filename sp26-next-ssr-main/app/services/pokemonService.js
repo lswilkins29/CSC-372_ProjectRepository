@@ -58,7 +58,21 @@ export async function removeFromParty(position) {
     if (response.status === 401) {
       throw new Error('Unauthorized. Please sign in.');
     }
-    throw new Error('Failed to remove from party');
+    
+    let errorMessage = 'Failed to remove from party';
+    try {
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        if (data.error) {
+          errorMessage = data.error;
+        }
+      }
+    } catch (e) {
+      // If response is not JSON, use default message
+    }
+    
+    throw new Error(errorMessage);
   }
   return response;
 }

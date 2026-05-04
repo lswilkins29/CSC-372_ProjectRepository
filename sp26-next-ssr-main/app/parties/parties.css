@@ -5,85 +5,124 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-geist-sans);
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
+  padding: 20px;
 }
 
 .parties-main {
   display: flex;
   flex: 1;
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
   flex-direction: column;
   align-items: center;
-  padding: 40px 20px;
-  gap: 24px;
+  padding: 60px 40px;
+  gap: 32px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .parties-main h1 {
-  font-size: 2.5rem;
-  color: #333;
+  font-size: 3rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 0;
+  font-weight: 700;
 }
 
 .subtitle {
-  color: #666;
-  font-size: 1.1rem;
+  color: #6b7280;
+  font-size: 1.2rem;
   margin: 0;
+  font-weight: 500;
 }
 
 .error {
-  padding: 16px;
-  background: #ffebee;
-  color: #d32f2f;
-  border-radius: 8px;
+  padding: 18px;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #991b1b;
+  border-radius: 12px;
   width: 100%;
   text-align: center;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.1);
 }
 
 .empty {
   text-align: center;
-  padding: 40px;
-  color: #666;
+  padding: 60px 40px;
+  color: #6b7280;
+  font-size: 1.1rem;
 }
 
 .cta-button {
   display: inline-block;
-  margin-top: 16px;
-  padding: 12px 24px;
-  background: #4ecdc4;
+  margin-top: 24px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: 600;
-  transition: background 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .cta-button:hover {
-  background: #3dbdb4;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
 }
 
 .parties-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
   width: 100%;
 }
 
 .party-card {
-  background: white;
+  background: linear-gradient(135deg, #f8f9fa 0%, #f1f5f9 100%);
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08), 0 1px 8px rgba(0,0,0,0.04);
+  padding: 32px;
   width: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.party-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -100px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.party-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12), 0 1px 8px rgba(0,0,0,0.08);
+  border-color: rgba(102, 126, 234, 0.2);
 }
 
 .user-name {
-  margin: 0 0 16px;
-  font-size: 1.3rem;
-  color: #333;
-  border-bottom: 2px solid #f0f0f0;
-  padding-bottom: 12px;
+  margin: 0 0 20px;
+  font-size: 1.4rem;
+  color: #1f2937;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+  padding-bottom: 16px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
 }
 
 .party-team {
@@ -91,64 +130,131 @@
   justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
 }
 
 .party-member {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px;
-  background: #f8f8f8;
+  padding: 14px 12px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(240,245,250,0.5) 100%);
   border-radius: 12px;
-  min-width: 80px;
+  min-width: 90px;
+  border: 1px solid rgba(102, 126, 234, 0.15);
+  transition: all 0.3s ease;
+}
+
+.party-member:hover {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(200,210,240,0.4) 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15);
+  border-color: rgba(102, 126, 234, 0.3);
 }
 
 .position {
-  font-size: 10px;
-  color: #999;
-  font-weight: bold;
-  margin-bottom: 4px;
+  font-size: 11px;
+  color: #667eea;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
 }
 
 .member-sprite {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   image-rendering: pixelated;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.1));
+  transition: transform 0.3s ease;
+}
+
+.party-member:hover .member-sprite {
+  transform: scale(1.15);
 }
 
 .member-name {
   margin-top: 8px;
-  font-size: 12px;
-  color: #666;
+  font-size: 13px;
+  color: #374151;
   text-transform: capitalize;
+  font-weight: 600;
+  text-align: center;
 }
 
 .no-members {
-  color: #aaa;
+  color: #9ca3af;
   font-style: italic;
-  padding: 20px;
+  padding: 24px;
+  position: relative;
+  z-index: 1;
 }
 
 .links {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 400px;
-  margin-top: 20px;
+  max-width: 600px;
+  margin-top: 32px;
+  gap: 16px;
 }
 
 .links a {
-  padding: 12px 20px;
-  color: #4ecdc4;
+  flex: 1;
+  padding: 14px 24px;
+  color: white;
   text-decoration: none;
   font-weight: 600;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: all 0.2s;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
 }
 
 .links a:hover {
-  background: #f8f8f8;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
+@media (max-width: 768px) {
+  .parties-main {
+    padding: 40px 24px;
+  }
+
+  .parties-main h1 {
+    font-size: 2.2rem;
+  }
+
+  .party-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .parties-main {
+    padding: 24px 16px;
+  }
+
+  .parties-main h1 {
+    font-size: 1.8rem;
+  }
+
+  .party-card {
+    padding: 16px;
+  }
+
+  .party-member {
+    min-width: 75px;
+    padding: 10px 8px;
+  }
+
+  .member-sprite {
+    width: 60px;
+    height: 60px;
+  }
+
+  .links {
+    flex-direction: column;
+  }
 }

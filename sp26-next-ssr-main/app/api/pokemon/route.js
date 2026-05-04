@@ -16,8 +16,8 @@ export async function GET(request) {
       // Search Pokémon by name
       url = `${POKEAPI_BASE}/pokemon/${query.toLowerCase()}`;
     } else {
-      // Get list of Pokémon (first 20)
-      url = `${POKEAPI_BASE}/pokemon?limit=20`;
+      // Get list of Pokémon (Generation 1: 151 total)
+      url = `${POKEAPI_BASE}/pokemon?limit=151`;
     }
 
     const response = await fetch(url);

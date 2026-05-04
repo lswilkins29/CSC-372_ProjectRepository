@@ -5,44 +5,61 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-geist-sans);
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
+  padding: 20px;
 }
 
 .main {
   display: flex;
   flex: 1;
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   flex-direction: column;
   align-items: center;
-  padding: 40px 20px;
-  gap: 24px;
+  padding: 60px 40px;
+  gap: 32px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .main h1 {
-  font-size: 2.5rem;
-  color: #333;
+  font-size: 3rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 0;
+  font-weight: 700;
 }
 
 .subtitle {
-  color: #666;
-  font-size: 1.1rem;
+  color: #6b7280;
+  font-size: 1.2rem;
   margin: 0;
+  font-weight: 500;
 }
 
 .loading {
   padding: 40px;
-  color: #666;
+  color: #6b7280;
   font-size: 18px;
+  text-align: center;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
 }
 
 .partyContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 28px;
   width: 100%;
+  margin: 20px 0;
 }
 
 .slot {
@@ -52,55 +69,92 @@
 }
 
 .slotLabel {
-  font-size: 12px;
-  color: #999;
-  margin-bottom: 8px;
-  font-weight: 600;
+  font-size: 11px;
+  color: #9ca3af;
+  margin-bottom: 12px;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .pokemonCard {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 28px 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 1px 8px rgba(0,0,0,0.08);
   width: 100%;
-  transition: transform 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.pokemonCard::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .pokemonCard:hover {
-  transform: translateY(-4px);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 1px 8px rgba(0,0,0,0.1);
 }
 
 .sprite {
-  width: 96px;
-  height: 96px;
+  width: 110px;
+  height: 110px;
   image-rendering: pixelated;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.pokemonCard:hover .sprite {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .pokemonName {
-  margin: 12px 0;
-  font-size: 1rem;
-  color: #333;
+  margin: 16px 0 0;
+  font-size: 1.1rem;
+  color: #1f2937;
   text-transform: capitalize;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
 }
 
 .removeButton {
-  padding: 8px 16px;
-  background-color: #ff6b6b;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.2s;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 12px;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  position: relative;
+  z-index: 1;
 }
 
 .removeButton:hover {
-  background-color: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+}
+
+.removeButton:active {
+  transform: translateY(0);
 }
 
 .emptySlot {
@@ -109,81 +163,133 @@
   align-items: center;
   justify-content: center;
   padding: 30px;
-  background: #e8e8e8;
-  border: 3px dashed #ccc;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  border: 2px dashed #d1d5db;
   border-radius: 16px;
   width: 100%;
   min-height: 160px;
+  transition: all 0.3s ease;
+}
+
+.emptySlot:hover {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 .emptyIcon {
   font-size: 40px;
   margin-bottom: 8px;
-  opacity: 0.5;
+  opacity: 0.4;
+  transition: transform 0.3s ease;
+}
+
+.emptySlot:hover .emptyIcon {
+  transform: scale(1.1);
+  opacity: 0.6;
 }
 
 .emptySlot span {
-  color: #999;
+  color: #9ca3af;
   font-size: 14px;
+  font-weight: 500;
 }
 
 .stats {
   width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  max-width: 500px;
+  padding: 28px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.2);
   text-align: center;
+  border: 1px solid rgba(251, 146, 60, 0.3);
 }
 
 .stats h3 {
-  margin: 0 0 12px;
-  color: #333;
+  margin: 0 0 16px;
+  color: #92400e;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 .stats p {
-  margin: 8px 0;
-  color: #666;
+  margin: 10px 0;
+  color: #b45309;
+  font-weight: 500;
 }
 
 .hint {
-  color: #999;
+  color: #b45309;
   font-style: italic;
+  opacity: 0.8;
 }
 
 .full {
-  color: #4ecdc4 !important;
-  font-weight: 600;
-  font-size: 1.1rem;
+  color: #059669 !important;
+  font-weight: 700;
+  font-size: 1.2rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .links {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 400px;
-  margin-top: 20px;
+  max-width: 500px;
+  margin-top: 32px;
+  gap: 16px;
 }
 
 .link {
-  padding: 12px 20px;
-  color: #4ecdc4;
+  flex: 1;
+  padding: 14px 24px;
+  color: white;
   text-decoration: none;
   font-weight: 600;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: all 0.2s;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
 }
 
 .link:hover {
-  background: #f8f8f8;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .main {
+    padding: 40px 24px;
+  }
+
+  .main h1 {
+    font-size: 2.2rem;
+  }
+
   .partyContainer {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 24px 16px;
+  }
+
+  .main h1 {
+    font-size: 1.8rem;
+  }
+
+  .partyContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .links {
+    flex-direction: column;
   }
 }

@@ -6,8 +6,9 @@ export async function DELETE(request, { params }) {
   if (!session) return unauthorizedResponse();
 
   try {
+    const resolvedParams = await params;
     const userEmail = session.user.email;
-    const position = parseInt(params.id);
+    const position = parseInt(resolvedParams.position);
 
     if (isNaN(position) || position < 1 || position > 6) {
       return Response.json({ error: 'Invalid position' }, { status: 400 });
