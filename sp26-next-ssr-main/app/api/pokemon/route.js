@@ -92,9 +92,3 @@ export async function GET(request) {
     return Response.json({ error: 'Failed to load Pokémon. Please try again.' }, { status: 500 });
   }
 }
-
-  } catch (error) {
-    console.error('PokeAPI proxy error:', error);
-    return Response.json({ error: error.message }, { status: 500 });
-  }
-}
