@@ -11,8 +11,8 @@ export async function getPokemonById(id) {
   return response.json();
 }
 
-export async function getPokemonList() {
-  const response = await fetch('/api/pokemon');
+export async function getPokemonList(page = 0) {
+  const response = await fetch(`/api/pokemon?page=${page}`);
   return response.json();
 }
 

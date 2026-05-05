@@ -19,6 +19,7 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('search');
   const id = searchParams.get('id');
+  const page = parseInt(searchParams.get('page') || '0');
 
   try {
     let url;
@@ -52,8 +53,10 @@ export async function GET(request) {
         types: data.types?.map(t => t.type.name) || []
       });
     } else {
-      // Get list of Pokémon (only first 20 for fast loading on free tier)
-      url = `${POKEAPI_BASE}/pokemon?limit=20&offset=0`;
+      // Get paginated list of Gen 1 Pokémon (20 per page, 151 total)
+      const limit = 20;
+      const offset = page * limit;
+      url = `${POKEAPI_BASE}/pokemon?limit=${limit}&offset=${offset}`;
       const response = await fetchWithTimeout(url, 10000);
       if (!response.ok) {
         return Response.json({ error: 'Failed to fetch Pokemon list' }, { status: 500 });
@@ -76,13 +79,15 @@ export async function GET(request) {
           }
         } catch (err) {
           console.error(`Error fetching ${p.name}:`, err.message);
-          // Continue with next Pokemon if one fails
           continue;
         }
       }
 
       return Response.json({
-        count: data.count,
+        count: 151, // Gen 1 total
+        page: page,
+        limit: limit,
+        totalPages: Math.ceil(151 / limit),
         results: detailedPokemon
       });
     }

@@ -10,18 +10,24 @@ export default function Home() {
   const [error, setError] = useState('');
   const [party, setParty] = useState([]);
   const [selectedPosition, setSelectedPosition] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     loadInitialPokemon();
     loadParty();
   }, []);
 
-  async function loadInitialPokemon() {
+  async function loadInitialPokemon(page = 0) {
     setLoading(true);
     try {
-      const data = await getPokemonList();
+      const data = await getPokemonList(page);
       if (data.results) {
         setResults(data.results);
+        setCurrentPage(data.page || 0);
+        setTotalPages(data.totalPages || 1);
+        setIsSearching(false);
       }
     } catch (err) {
       setError('Failed to load Pokémon');
@@ -41,12 +47,14 @@ export default function Home() {
   async function handleSearch(e) {
     e.preventDefault();
     if (!search.trim()) {
-      loadInitialPokemon();
+      setCurrentPage(0);
+      loadInitialPokemon(0);
       return;
     }
     
     setLoading(true);
     setError('');
+    setIsSearching(true);
     try {
       const data = await searchPokemon(search);
       if (data.error) {
@@ -61,6 +69,18 @@ export default function Home() {
       setError('Search failed');
     }
     setLoading(false);
+  }
+
+  async function handleNextPage() {
+    if (currentPage < totalPages - 1) {
+      loadInitialPokemon(currentPage + 1);
+    }
+  }
+
+  async function handlePreviousPage() {
+    if (currentPage > 0) {
+      loadInitialPokemon(currentPage - 1);
+    }
   }
 
   async function handleAddToParty(pokemon) {
@@ -106,27 +126,51 @@ export default function Home() {
         {loading ? (
           <div className={styles.loading}>Loading...</div>
         ) : (
-          <div className={styles.results}>
-            {results.map(pokemon => (
-              <div key={pokemon.id} className={styles.pokemonCard}>
-                <img 
-                  src={pokemon.sprite} 
-                  alt={pokemon.name}
-                  className={styles.sprite}
-                />
-                <div className={styles.pokemonInfo}>
-                  <h3>#{pokemon.id} {pokemon.name}</h3>
-                  <p>Type: {pokemon.types?.join(', ') || 'Unknown'}</p>
-                  <button 
-                    onClick={() => handleAddToParty(pokemon)}
-                    className={styles.addButton}
-                  >
-                    Add to Party
-                  </button>
+          <>
+            <div className={styles.results}>
+              {results.map(pokemon => (
+                <div key={pokemon.id} className={styles.pokemonCard}>
+                  <img 
+                    src={pokemon.sprite} 
+                    alt={pokemon.name}
+                    className={styles.sprite}
+                  />
+                  <div className={styles.pokemonInfo}>
+                    <h3>#{pokemon.id} {pokemon.name}</h3>
+                    <p>Type: {pokemon.types?.join(', ') || 'Unknown'}</p>
+                    <button 
+                      onClick={() => handleAddToParty(pokemon)}
+                      className={styles.addButton}
+                    >
+                      Add to Party
+                    </button>
+                  </div>
                 </div>
+              ))}
+            </div>
+
+            {!isSearching && totalPages > 1 && (
+              <div className={styles.pagination}>
+                <button 
+                  onClick={handlePreviousPage}
+                  disabled={currentPage === 0}
+                  className={styles.paginationButton}
+                >
+                  ← Previous
+                </button>
+                <span className={styles.pageInfo}>
+                  Page {currentPage + 1} of {totalPages}
+                </span>
+                <button 
+                  onClick={handleNextPage}
+                  disabled={currentPage >= totalPages - 1}
+                  className={styles.paginationButton}
+                >
+                  Next →
+                </button>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
 
         <div className={styles.partyPreview}>
