@@ -4,13 +4,13 @@
 - https://csc-372-projectrepository.onrender.com
 
 ## Reflection
-###Design Choices
+### Design Choices
 - I chose NextJS for my frontend because of the integration of the frontend and backend to be in the same place. My backend consists of Node.js and the expressAPI to handle the data that is recieved from the PokeAPI and the database that uses postgreSQL to store pokemon to using party
-###Challenges
+### Challenges
 - My biggest challenge was figuring out how the PokeAPI works and then being able to implement that to my full stack service. Another chalenge was once my service was deployed to render I ran into problems with there being to many fetches at once for render to handle. 
-###Learning Outcome
+### Learning Outcome
 - I was able to refine my understanding of how databases work while learning how to implement an external API to be utilized correctly. I also learned how to use OAuth from google to add authentication to my service and then be able to deploy my full-stack service as well. 
-###Future Work
+### Future Work
 - With more time I believe I would refine how the search system works to allow for pokemon to be found by their generation and typing. I would also like to add an account page where even though you are able to login with google you can still have your own username and apply cosmetic changes to your pokemon.
 
 # MVP Demo Video 
