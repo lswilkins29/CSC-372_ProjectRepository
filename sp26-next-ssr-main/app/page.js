@@ -11,22 +11,27 @@ export default function Home() {
   const [party, setParty] = useState([]);
   const [selectedPosition, setSelectedPosition] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPrevPage, setHasPrevPage] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
-    loadInitialPokemon();
+    loadInitialPokemon(0);
     loadParty();
   }, []);
 
-  async function loadInitialPokemon(page = 0) {
+  async function loadInitialPokemon(page) {
     setLoading(true);
+    setError('');
     try {
-      const data = await getPokemonList(page);
+      const response = await fetch(`/api/pokemon?page=${page}`);
+      const data = await response.json();
+      
       if (data.results) {
         setResults(data.results);
-        setCurrentPage(data.page || 0);
-        setTotalPages(data.totalPages || 1);
+        setCurrentPage(data.page);
+        setHasNextPage(data.hasNextPage);
+        setHasPrevPage(data.hasPrevPage);
         setIsSearching(false);
       }
     } catch (err) {
@@ -71,14 +76,14 @@ export default function Home() {
     setLoading(false);
   }
 
-  async function handleNextPage() {
-    if (currentPage < totalPages - 1) {
+  function handleNextPage() {
+    if (hasNextPage) {
       loadInitialPokemon(currentPage + 1);
     }
   }
 
-  async function handlePreviousPage() {
-    if (currentPage > 0) {
+  function handlePreviousPage() {
+    if (hasPrevPage) {
       loadInitialPokemon(currentPage - 1);
     }
   }
@@ -149,21 +154,21 @@ export default function Home() {
               ))}
             </div>
 
-            {!isSearching && totalPages > 1 && (
+            {!isSearching && (
               <div className={styles.pagination}>
                 <button 
                   onClick={handlePreviousPage}
-                  disabled={currentPage === 0}
+                  disabled={!hasPrevPage}
                   className={styles.paginationButton}
                 >
                   ← Previous
                 </button>
                 <span className={styles.pageInfo}>
-                  Page {currentPage + 1} of {totalPages}
+                  Page {currentPage + 1}
                 </span>
                 <button 
                   onClick={handleNextPage}
-                  disabled={currentPage >= totalPages - 1}
+                  disabled={!hasNextPage}
                   className={styles.paginationButton}
                 >
                   Next →

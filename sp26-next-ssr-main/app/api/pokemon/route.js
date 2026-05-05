@@ -53,7 +53,7 @@ export async function GET(request) {
         types: data.types?.map(t => t.type.name) || []
       });
     } else {
-      // Get paginated list of Gen 1 Pokémon (20 per page, 151 total)
+      // Get paginated list of Gen 1 Pokémon (20 per page)
       const limit = 20;
       const offset = page * limit;
       url = `${POKEAPI_BASE}/pokemon?limit=${limit}&offset=${offset}`;
@@ -83,12 +83,14 @@ export async function GET(request) {
         }
       }
 
+      const totalPages = Math.ceil(151 / limit);
       return Response.json({
-        count: 151, // Gen 1 total
+        results: detailedPokemon,
         page: page,
-        limit: limit,
-        totalPages: Math.ceil(151 / limit),
-        results: detailedPokemon
+        pageSize: limit,
+        totalPages: totalPages,
+        hasNextPage: page < totalPages - 1,
+        hasPrevPage: page > 0
       });
     }
 
